@@ -12,8 +12,29 @@ const httpLink = new HttpLink({
 });
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          siteDiaries: {
+            merge(_existing, incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
+    },
+  }),
   link: httpLink,
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-first', // Offline-first strategy
+    },
+    query: {
+      fetchPolicy: 'cache-first',
+      errorPolicy: 'all',
+    },
+  },
 });
 
 export { ErrorBoundary } from 'expo-router';
