@@ -10,6 +10,9 @@ You'll need Node.js 22, Yarn v1, and Cocoapods.
 brew install node yarn cocoapods
 ```
 
+### You'll need to create an .env file like the .env.example
+
+
 ### Installing Dependencies
 
 Run:
