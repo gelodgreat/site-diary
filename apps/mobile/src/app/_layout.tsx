@@ -25,16 +25,16 @@ const client = new ApolloClient({
       },
     },
   }),
-  link: httpLink,
   defaultOptions: {
+    query: {
+      errorPolicy: 'all',
+      fetchPolicy: 'cache-first',
+    },
     watchQuery: {
       fetchPolicy: 'cache-first', // Offline-first strategy
     },
-    query: {
-      fetchPolicy: 'cache-first',
-      errorPolicy: 'all',
-    },
   },
+  link: httpLink,
 });
 
 export { ErrorBoundary } from 'expo-router';

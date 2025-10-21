@@ -9,6 +9,26 @@ export type Weather = {
 };
 
 /** @gqlType */
+export type Resources = {
+  /** @gqlField */
+  labor?: string;
+  /** @gqlField */
+  materials?: string;
+  /** @gqlField */
+  machinery?: string;
+};
+
+/** @gqlType */
+export type Incident = {
+  /** @gqlField */
+  type: string;
+  /** @gqlField */
+  description: string;
+  /** @gqlField */
+  time?: string;
+};
+
+/** @gqlType */
 export type SiteDiary = {
   /** @gqlField */
   id: string;
@@ -22,6 +42,12 @@ export type SiteDiary = {
   title: string;
   /** @gqlField */
   content?: string;
+  /** @gqlField */
+  workProgress?: string;
+  /** @gqlField */
+  resources?: Resources;
+  /** @gqlField */
+  incidents?: Incident[];
   /** @gqlField */
   attendees?: string[];
   /** @gqlField */

@@ -1,4 +1,5 @@
 import { SITE_DIARIES_QUERY } from '@/graphql/queries/siteDiaries';
+import { useSiteDiariesStore } from '@/stores/useSiteDiariesStore';
 import {
   SiteDiariesQuery,
   SiteDiariesQueryVariables,
@@ -11,22 +12,28 @@ import {
 } from './SiteDiaryListScreen.props';
 import SiteDiaryListScreenView from './SiteDiaryListScreen.view';
 
-const SiteDiaryListScreen = (props: SiteDiaryListScreenProps): JSX.Element => {
-  const { data, loading, error, refetch } = useQuery<
+const SiteDiaryListScreen = (props: SiteDiaryListScreenProps) => {
+  const { data, error, loading, refetch } = useQuery<
     SiteDiariesQuery,
     SiteDiariesQueryVariables
   >(SITE_DIARIES_QUERY, {
-    fetchPolicy: 'cache-first', // Offline support
+    fetchPolicy: 'cache-first',
   });
 
+  const localDiaries = useSiteDiariesStore((state) => state.localDiaries);
+
+  const allDiaries = [...localDiaries, ...(data?.siteDiaries || [])];
+
   const privateProps: SiteDiaryListScreenPrivateProps = {
-    data: data?.siteDiaries || [],
-    loading,
+    data: allDiaries,
     error: error as Error | undefined,
+    loading,
     refetch,
   };
 
   return <SiteDiaryListScreenView {...props} {...privateProps} />;
 };
+
+SiteDiaryListScreen.displayName = 'SiteDiaryListScreen';
 
 export default SiteDiaryListScreen;

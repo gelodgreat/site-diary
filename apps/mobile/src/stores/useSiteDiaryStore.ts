@@ -3,30 +3,55 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface SiteDiaryFormState {
-  title: string;
-  date: string;
+  attachments: string;
+  attendees: string;
+  content: string;
   createdBy: string;
-  setTitle: (title: string) => void;
-  setDate: (date: string) => void;
-  setCreatedBy: (createdBy: string) => void;
+  date: string;
   resetForm: () => void;
+  setAttachments: (attachments: string) => void;
+  setAttendees: (attendees: string) => void;
+  setContent: (content: string) => void;
+  setCreatedBy: (createdBy: string) => void;
+  setDate: (date: string) => void;
+  setTitle: (title: string) => void;
+  setWeatherDesc: (weatherDesc: string) => void;
+  setWeatherTemp: (weatherTemp: string) => void;
+  title: string;
+  weatherDesc: string;
+  weatherTemp: string;
 }
 
 export const useSiteDiaryStore = create<SiteDiaryFormState>()(
   persist(
     (set) => ({
-      title: '',
-      date: new Date().toISOString().split('T')[0],
+      attachments: '',
+      attendees: '',
+      content: '',
       createdBy: '',
-      setTitle: (title) => set({ title }),
-      setDate: (date) => set({ date }),
-      setCreatedBy: (createdBy) => set({ createdBy }),
+      date: new Date().toISOString().split('T')[0],
       resetForm: () =>
         set({
-          title: '',
-          date: new Date().toISOString().split('T')[0],
+          attachments: '',
+          attendees: '',
+          content: '',
           createdBy: '',
+          date: new Date().toISOString().split('T')[0],
+          title: '',
+          weatherDesc: '',
+          weatherTemp: '',
         }),
+      setAttachments: (attachments) => set({ attachments }),
+      setAttendees: (attendees) => set({ attendees }),
+      setContent: (content) => set({ content }),
+      setCreatedBy: (createdBy) => set({ createdBy }),
+      setDate: (date) => set({ date }),
+      setTitle: (title) => set({ title }),
+      setWeatherDesc: (weatherDesc) => set({ weatherDesc }),
+      setWeatherTemp: (weatherTemp) => set({ weatherTemp }),
+      title: '',
+      weatherDesc: '',
+      weatherTemp: '',
     }),
     {
       name: 'site-diary-storage',

@@ -9,11 +9,7 @@ const TabLayout: React.FC = () => {
     <ThemeProvider>
       <NativeTabs minimizeBehavior="onScrollDown" tintColor={AC.systemCyan}>
         <NativeTabs.Trigger name="(home)">
-          <Label>Home</Label>
-          <Icon drawable="custom_android_drawable" sf="house.fill" />
-        </NativeTabs.Trigger>
-        <NativeTabs.Trigger name="(site-diary)">
-          <Label>Site Diary</Label>
+          <Label>Dashboard</Label>
           <Icon drawable="custom_android_drawable" sf="doc.text.fill" />
         </NativeTabs.Trigger>
       </NativeTabs>

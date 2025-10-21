@@ -1,5 +1,7 @@
+import { OfflineIndicator } from '@/components/OfflineIndicator';
 import { Text } from '@/components/ui/text';
 import { SiteDiary } from '@/types/__generated__/graphql';
+import { useNetworkStatus } from '@/utils/useNetworkStatus';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
@@ -14,11 +16,12 @@ import { styles } from './SiteDiaryListScreen.style';
 
 const SiteDiaryListScreenView = (props: SiteDiaryListScreenViewProps) => {
   const router = useRouter();
+  const isOnline = useNetworkStatus();
 
   const renderItem = ({ item }: { item: SiteDiary }) => (
     <TouchableOpacity
+      onPress={() => router.push(`/(tabs)/(home)/${item.id}`)}
       style={styles.itemContainer}
-      onPress={() => router.push(`/(tabs)/(site-diary)/${item.id}`)}
     >
       <Text style={styles.itemTitle}>{item.title}</Text>
       <Text className="text-sm text-gray-600">
@@ -35,7 +38,7 @@ const SiteDiaryListScreenView = (props: SiteDiaryListScreenViewProps) => {
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
       <Text style={styles.emptyText}>
-        No site diaries found.{'\n'}Tap "Add New" to create one.
+        No site diaries found.{'\n'}Tap &quot;Add New&quot; to create one.
       </Text>
     </View>
   );
@@ -61,31 +64,35 @@ const SiteDiaryListScreenView = (props: SiteDiaryListScreenViewProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <OfflineIndicator />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Site Diaries</Text>
         <TouchableOpacity
-          className="rounded bg-blue-500 px-4 py-2"
-          onPress={() => router.push('/(tabs)/(site-diary)/add')}
+          className="rounded bg-blue-500 px-4 py-2 disabled:bg-gray-400"
+          disabled={!isOnline}
+          onPress={() => router.push('/(tabs)/(home)/add')}
         >
           <Text className="font-semibold text-white">Add New</Text>
         </TouchableOpacity>
       </View>
 
       <FlatList
+        className="flex-1"
         data={props.data}
-        renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={!props.loading ? renderEmpty : null}
         refreshControl={
           <RefreshControl
-            refreshing={props.loading}
             onRefresh={props.refetch}
+            refreshing={props.loading}
           />
         }
-        ListEmptyComponent={!props.loading ? renderEmpty : null}
-        className="flex-1"
+        renderItem={renderItem}
       />
     </SafeAreaView>
   );
 };
+
+SiteDiaryListScreenView.displayName = 'SiteDiaryListScreenView';
 
 export default SiteDiaryListScreenView;

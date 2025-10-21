@@ -7,6 +7,9 @@ export const SITE_DIARIES_QUERY = gql`
       title
       date
       createdBy
+      content
+      attendees
+      attachments
       weather {
         temperature
         description
