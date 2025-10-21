@@ -21,7 +21,7 @@ const SiteDiaryListScreen = (props: SiteDiaryListScreenProps) => {
   });
 
   const localDiaries = useSiteDiariesStore((state) => state.localDiaries);
-
+  // this one we merge local diaries with server diaries
   const allDiaries = [...localDiaries, ...(data?.siteDiaries || [])];
 
   const privateProps: SiteDiaryListScreenPrivateProps = {

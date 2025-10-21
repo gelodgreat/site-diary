@@ -43,6 +43,14 @@ const SiteDiaryListScreenView = (props: SiteDiaryListScreenViewProps) => {
     </View>
   );
 
+  const refetch = () => {
+    props.refetch();
+  };
+
+  const navigateToAddNew = () => {
+    router.push('/(tabs)/(home)/add');
+  };
+
   if (props.error) {
     return (
       <SafeAreaView style={styles.container}>
@@ -53,7 +61,7 @@ const SiteDiaryListScreenView = (props: SiteDiaryListScreenViewProps) => {
           </Text>
           <TouchableOpacity
             className="mt-4 rounded bg-blue-500 px-6 py-3"
-            onPress={() => props.refetch()}
+            onPress={refetch}
           >
             <Text className="font-semibold text-white">Retry</Text>
           </TouchableOpacity>
@@ -70,7 +78,7 @@ const SiteDiaryListScreenView = (props: SiteDiaryListScreenViewProps) => {
         <TouchableOpacity
           className="rounded bg-blue-500 px-4 py-2 disabled:bg-gray-400"
           disabled={!isOnline}
-          onPress={() => router.push('/(tabs)/(home)/add')}
+          onPress={navigateToAddNew}
         >
           <Text className="font-semibold text-white">Add New</Text>
         </TouchableOpacity>
@@ -82,10 +90,7 @@ const SiteDiaryListScreenView = (props: SiteDiaryListScreenViewProps) => {
         keyExtractor={(item) => item.id}
         ListEmptyComponent={!props.loading ? renderEmpty : null}
         refreshControl={
-          <RefreshControl
-            onRefresh={props.refetch}
-            refreshing={props.loading}
-          />
+          <RefreshControl onRefresh={refetch} refreshing={props.loading} />
         }
         renderItem={renderItem}
       />

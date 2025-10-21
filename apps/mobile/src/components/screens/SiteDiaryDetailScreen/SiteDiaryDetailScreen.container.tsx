@@ -27,6 +27,7 @@ const SiteDiaryDetailScreen = (props: SiteDiaryDetailScreenProps) => {
     : localDiaries.find((d) => d.id === props.id);
 
   const privateProps: SiteDiaryDetailScreenPrivateProps = {
+    // If the diary is not found on the server, check local diaries
     data: data?.siteDiary || localDiary || null,
     error: error as Error | undefined,
     loading,

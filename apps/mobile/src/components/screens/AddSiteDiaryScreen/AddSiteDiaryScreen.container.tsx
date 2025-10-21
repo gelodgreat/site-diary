@@ -54,15 +54,17 @@ const AddSiteDiaryScreen = (props: AddSiteDiaryScreenProps) => {
     setLoading(true);
 
     try {
+      // since we are using zustand for local storage, we create a unique id here for the new diary
       const id = `local-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 
+      // the attendees and attachments are stored as comma-separated strings in the form, so we need to split them into arrays
       const attendeesArray = attendees.trim()
         ? attendees.split(',').map((a) => a.trim())
         : [];
       const attachmentsArray = attachments.trim()
         ? attachments.split(',').map((a) => a.trim())
         : [];
-
+      // weather is optional
       const weather =
         weatherTemp.trim() && weatherDesc.trim()
           ? {
@@ -72,6 +74,7 @@ const AddSiteDiaryScreen = (props: AddSiteDiaryScreenProps) => {
             }
           : null;
 
+      // we create the new diary object based on the interface of SiteDiary
       const newDiary: SiteDiary = {
         __typename: 'SiteDiary',
         attachments: attachmentsArray,
@@ -95,6 +98,7 @@ const AddSiteDiaryScreen = (props: AddSiteDiaryScreenProps) => {
     }
   };
 
+  // we prepare the private props to pass down to the view component to be passed on the view file
   const privateProps: AddSiteDiaryScreenPrivateProps = {
     attachments,
     attendees,
