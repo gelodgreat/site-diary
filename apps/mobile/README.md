@@ -23,12 +23,6 @@ brew install node yarn cocoapods
 Create a `.env` file in this directory:
 
 ```sh
-EXPO_PUBLIC_API_GRAPHQL_URL=https://buildpass-mock-api.preview.buildpass.com.au/api/graphql
-```
-
-or
-
-```sh
 EXPO_PUBLIC_API_GRAPHQL_URL=http://localhost:3000/api/graphql
 ```
 

@@ -10,7 +10,7 @@ You'll need Node.js 22, Yarn v1, and Cocoapods.
 brew install node yarn cocoapods
 ```
 
-### You'll need to create an .env file like the .env.example
+### You'll need to create an .env file like the .env.example in apps/mobile
 
 
 ### Installing Dependencies
@@ -64,6 +64,16 @@ src/
     ├── props/         # TypeScript interfaces and types
     └── index.ts       # Container exports
 ```
+### Environment
+**Environment Configuration**
+
+It's essential to create separate environment files for each deployment target:
+- `.env.development` - Local development settings
+- `.env.staging` - Staging environment configuration  
+- `.env.production` - Production environment variables
+
+This isolation ensures proper environment-specific configurations and prevents configuration leaks between environments.
+
 
 ### State Management
 
